@@ -1,5 +1,6 @@
 const Redux= require('redux')
 const createConfig= Redux.legacy_createStore
+const bind = Redux.bindActionCreators
 
 const CakeOrdered= 'CAKE_ORDERED'
 const CakeRestored= 'CAKE_RESTORED'
@@ -43,9 +44,14 @@ console.log('Initial state',store.getState())
 
 const unsubscribe=store.subscribe(()=>console.log('update state',store.getState()))
 
-store.dispatch(cakeFun())
-store.dispatch(cakeFun())
-store.dispatch(cakeFun())
-store.dispatch(CakeRestor(3))
+// store.dispatch(cakeFun())
+// store.dispatch(cakeFun())
+// store.dispatch(cakeFun())
+// store.dispatch(CakeRestor(3))
+const actions = bind({cakeFun,CakeRestor},store.dispatch)
+actions.cakeFun()
+actions.cakeFun()
+actions.cakeFun()
+actions.CakeRestor(3)
 
 unsubscribe()
